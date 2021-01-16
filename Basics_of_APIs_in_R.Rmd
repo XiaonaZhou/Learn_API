@@ -1,0 +1,50 @@
+---
+title: "Basics of APIs in R"
+author: "Xiaona Zhou"
+date: "1/16/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+This notebook summarizes the basics of APIs from an article posted on DATAQUEST, [R API Tutorial: Getting Started with APIs in R](https://www.dataquest.io/blog/r-api-tutorial/). An example on how to get data through Open Notify API is demonstrated here. 
+
+# Making API request in R
+
+Load libraries
+```{r}
+library(httr)
+library(jsonlite)
+```
+
+Use `GET` to make request. 
+Syntax: `GET('API's URL')`
+
+```{r}
+res = GET("http://api.open-notify.org/astros.json")
+res
+```
+
+Note: Status: 200 means success. Check the means of other numbers [here](https://www.restapitutorial.com/httpstatuscodes.html)
+
+
+Convert the content in `res` to usable data in R.
+```{r}
+data = fromJSON(rawToChar(res$content))
+names(data)
+```
+Access the data
+```{r}
+data$people
+```
+```{r}
+data$number
+```
+```{r}
+data$message
+```
+
